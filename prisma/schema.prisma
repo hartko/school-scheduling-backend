@@ -1,0 +1,78 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Account {
+  id       Int    @id @default(autoincrement())
+  username String
+  password String
+}
+
+model Teacher {
+  id              Int              @id @default(autoincrement())
+  first_name      String
+  last_name       String
+  middle_name     String?
+  teacher_id      String?          @unique
+  email           String?          @unique
+  teacherSubjects TeacherSubject[]
+  roomSchedules   RoomSchedule[]
+}
+
+model Room {
+  id            Int            @id @default(autoincrement())
+  name          String
+  capacity      Int?
+  level         String?
+  roomSchedules RoomSchedule[]
+}
+
+model Subject {
+  id              Int              @id @default(autoincrement())
+  name            String
+  code            String?          @unique
+  teacherSubjects TeacherSubject[]
+}
+
+model Schedule {
+  id            Int            @id @default(autoincrement())
+  start_time    String
+  end_time      String
+  is_break      Boolean        @default(false)
+  day           Int
+  roomSchedules RoomSchedule[]
+}
+
+model TeacherSubject {
+  id         Int @id @default(autoincrement())
+  teacher_id Int
+  subject_id Int
+
+  teacher Teacher @relation(fields: [teacher_id], references: [id])
+  subject Subject @relation(fields: [subject_id], references: [id])
+
+  @@unique([teacher_id, subject_id])
+}
+
+model RoomSchedule {
+  id          Int @id @default(autoincrement())
+  room_id     Int
+  schedule_id Int
+
+  room      Room     @relation(fields: [room_id], references: [id])
+  schedule  Schedule @relation(fields: [schedule_id], references: [id])
+  teacher   Teacher? @relation(fields: [teacherId], references: [id])
+  teacherId Int?
+
+  @@unique([room_id, schedule_id])
+}
