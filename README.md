@@ -21,10 +21,56 @@
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## Description
+## School Scheduling System
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+A school scheduling system built with NestJS, Prisma ORM, and PostgreSQL.
+Manages teachers, subjects, rooms, schedules, and relationships between them, with a type-safe API.
 
+## Tech Stack
+
+```bash
+• Backend: NestJS (Node.js framework)
+• ORM: Prisma v7+
+• Database: PostgreSQL
+• Validation: class-validator and class-transformer
+• Language: TypeScript
+
+```
+
+## Features
+
+```bash
+• Accounts – store usernames and hashed passwords
+• Teachers – manage teacher info and email
+• Subjects – manage subjects
+• Rooms – define rooms and capacity
+• Schedules – define time slots and breaks
+• RoomSchedule – assign schedules to rooms
+• TeacherSubject - assign subjects to teachers
+```
+
+## Project Structure
+
+```bash
+src/
+├─ accounts/
+│  ├─ accounts.controller.ts
+│  ├─ accounts.service.ts
+│  └─ dto/
+├─ teachers/
+│  ├─ teachers.controller.ts
+│  ├─ teachers.service.ts
+│  └─ dto/
+├─ subjects/
+├─ rooms/
+├─ schedules/
+├─ room-schedules/
+├─ prisma/
+│  ├─ prisma.module.ts
+│  └─ prisma.service.ts
+├─ app.module.ts
+└─ main.ts
+```
 ## Project setup
 
 ```bash
@@ -86,12 +132,6 @@ Check out a few resources that may come in handy when working with NestJS:
 ## Support
 
 Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
 
 ## License
 
