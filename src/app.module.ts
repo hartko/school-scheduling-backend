@@ -9,6 +9,8 @@ import { RoomSchedulesModule } from './room-schedules/room-schedules.module';
 import { AuthModule } from './auth/auth.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { ServiceModule } from './service/service.module';
+import { ClassGroupModule } from './class-groups/class-group.module';
+import { SectionsModule } from './sections/sections.module';
 
 @Module({
   imports: [
@@ -20,7 +22,9 @@ import { ServiceModule } from './service/service.module';
     TeacherSubjectsModule,
     RoomSchedulesModule,
     PrismaModule,
-    ServiceModule],
+    ServiceModule,
+    ClassGroupModule,
+    SectionsModule],
   providers: [AppService],
 })
 export class AppModule { }

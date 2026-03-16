@@ -2,6 +2,7 @@
 import { Injectable, OnModuleInit, OnModuleDestroy } from '@nestjs/common';
 import { PrismaClient } from '@prisma/client';
 import { PrismaPg } from '@prisma/adapter-pg'; // import the adapter class
+import PrismaPaginate from 'prisma-paginate';
 
 @Injectable()
 export class PrismaService extends PrismaClient implements OnModuleInit, OnModuleDestroy {
@@ -14,6 +15,8 @@ export class PrismaService extends PrismaClient implements OnModuleInit, OnModul
       adapter, // pass the instantiated adapter
       log: ['query', 'info', 'warn', 'error'],
     });
+     this.$extends(PrismaPaginate);
+
   }
 
   async onModuleInit() {

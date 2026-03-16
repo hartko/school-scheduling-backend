@@ -1,11 +1,11 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { RoomSchedulesService } from './room-schedules.service';
 import { CreateRoomScheduleDto } from './dto/create-room-schedule.dto';
 import { UpdateRoomScheduleDto } from './dto/update-room-schedule.dto';
 
 @Controller('api/room-schedules')
 export class RoomSchedulesController {
-  constructor(private readonly roomSchedulesService: RoomSchedulesService) {}
+  constructor(private readonly roomSchedulesService: RoomSchedulesService) { }
 
   @Post()
   create(@Body() createRoomScheduleDto: CreateRoomScheduleDto) {
@@ -13,8 +13,8 @@ export class RoomSchedulesController {
   }
 
   @Get()
-  findAll() {
-    return this.roomSchedulesService.findAll();
+  findAll(@Query('page') page: number, @Query('limit') limit: number, @Query('search') search?: string, @Query('sortBy') sortBy: string = 'id', @Query('sortOrder') sortOrder: 'asc' | 'desc' = 'asc') {
+    return this.roomSchedulesService.findAll(page, limit, search, sortBy, sortOrder);
   }
 
   @Get(':id')
