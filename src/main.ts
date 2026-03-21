@@ -10,7 +10,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   app.enableCors({
-    origin: "http://localhost:3000", // your Next.js frontend
+    origin: ["http://localhost:3000", "https://sci-scheduler.vercel.app"], // your Next.js frontend
     credentials: true,
   })
   app.useGlobalPipes(
