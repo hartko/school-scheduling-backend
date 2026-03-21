@@ -1,5 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { PrismaPg } from "@prisma/adapter-pg";
+import { Pool } from "pg";
 import dotenv from "dotenv";
 
 import { seedSchedules } from "./seeders/schedule.seeder";
@@ -8,11 +9,13 @@ import { seedRooms } from "./seeders/room.seeder";
 import { seedSubjects } from "./seeders/subject.seeder";
 import { seedTeachers } from "./seeders/teacher.seeder";
 
-dotenv.config(); 
+dotenv.config();
 
-const adapter = new PrismaPg({
-  connectionString: process.env.DATABASE_URL as string, // proper init
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL as string,
+  ssl: { rejectUnauthorized: false },
 });
+const adapter = new PrismaPg(pool);
 
 const prisma = new PrismaClient({
   adapter,
