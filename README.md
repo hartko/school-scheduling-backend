@@ -26,6 +26,7 @@
 A school scheduling system built with NestJS, Prisma ORM, and PostgreSQL.
 Manages teachers, subjects, rooms, schedules, sections, class groups, and relationships between them, with a type-safe REST API and Swagger documentation.
 
+
 ## Tech Stack
 
 ```bash
