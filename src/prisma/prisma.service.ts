@@ -8,7 +8,8 @@ import PrismaPaginate from 'prisma-paginate';
 export class PrismaService extends PrismaClient implements OnModuleInit, OnModuleDestroy {
   constructor() {
     const adapter = new PrismaPg({
-      connectionString: process.env.DATABASE_URL as string, // proper init
+      connectionString: process.env.DATABASE_URL as string,
+      ssl: { rejectUnauthorized: false },
     });
 
     super({
