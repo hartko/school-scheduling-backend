@@ -23,7 +23,7 @@ model Teacher {
   first_name      String
   last_name       String
   middle_name     String?
-  teacher_id      String?          @unique
+  teacher_code    String?          @unique
   email           String?          @unique
   teacherSubjects TeacherSubject[]
   roomSchedules   RoomSchedule[]
@@ -33,8 +33,14 @@ model Room {
   id            Int            @id @default(autoincrement())
   name          String
   capacity      Int?
-  level         String?
+  level         Int?
   roomSchedules RoomSchedule[]
+}
+
+model Section {
+  id   Int    @id @default(autoincrement())
+  code String @unique
+  name String
 }
 
 model Subject {
@@ -45,12 +51,24 @@ model Subject {
 }
 
 model Schedule {
-  id            Int            @id @default(autoincrement())
-  start_time    String
-  end_time      String
-  is_break      Boolean        @default(false)
-  day           Int
+  id            Int     @id @default(autoincrement())
+  name          String
+  description   String?
+  schedule_code String
+
   roomSchedules RoomSchedule[]
+  scheduleTimes ScheduleTime[]
+}
+
+model ScheduleTime {
+  id          Int     @id @default(autoincrement())
+  start_time  String
+  end_time    String
+  is_break    Boolean @default(false)
+  day         Int
+  schedule_id Int
+
+  schedule Schedule @relation(fields: [schedule_id], references: [id])
 }
 
 model TeacherSubject {
@@ -58,8 +76,9 @@ model TeacherSubject {
   teacher_id Int
   subject_id Int
 
-  teacher Teacher @relation(fields: [teacher_id], references: [id])
-  subject Subject @relation(fields: [subject_id], references: [id])
+  teacher     Teacher      @relation(fields: [teacher_id], references: [id])
+  subject     Subject      @relation(fields: [subject_id], references: [id])
+  classGroups ClassGroup[]
 
   @@unique([teacher_id, subject_id])
 }
@@ -69,10 +88,23 @@ model RoomSchedule {
   room_id     Int
   schedule_id Int
 
-  room      Room     @relation(fields: [room_id], references: [id])
-  schedule  Schedule @relation(fields: [schedule_id], references: [id])
-  teacher   Teacher? @relation(fields: [teacherId], references: [id])
-  teacherId Int?
+  room        Room         @relation(fields: [room_id], references: [id])
+  schedule    Schedule     @relation(fields: [schedule_id], references: [id])
+  teacher     Teacher?     @relation(fields: [teacherId], references: [id])
+  teacherId   Int?
+  classGroups ClassGroup[]
 
   @@unique([room_id, schedule_id])
+}
+
+model ClassGroup {
+  id                 Int  @id @default(autoincrement())
+  teacher_subject_id Int?
+  room_schedule_id   Int?
+  section_id         Int?
+
+  teacherSubject   TeacherSubject? @relation(fields: [teacher_subject_id], references: [id])
+  teacherSubjectId Int?
+  roomSchedule     RoomSchedule?   @relation(fields: [room_schedule_id], references: [id])
+  roomScheduleId   Int?
 }
