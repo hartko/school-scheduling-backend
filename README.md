@@ -24,47 +24,60 @@
 ## School Scheduling System
 
 A school scheduling system built with NestJS, Prisma ORM, and PostgreSQL.
-Manages teachers, subjects, rooms, schedules, and relationships between them, with a type-safe API.
+Manages teachers, subjects, rooms, schedules, sections, class groups, and relationships between them, with a type-safe REST API and Swagger documentation.
 
 ## Tech Stack
 
 ```bash
-• Backend: NestJS (Node.js framework)
+• Backend: NestJS v11 (Node.js framework)
 • ORM: Prisma v7+
 • Database: PostgreSQL
 • Validation: class-validator and class-transformer
+• API Docs: Swagger (@nestjs/swagger)
+• Pagination: prisma-paginate
 • Language: TypeScript
-
 ```
 
 ## Features
 
 ```bash
-• Accounts – store usernames and hashed passwords
-• Teachers – manage teacher info and email
-• Subjects – manage subjects
-• Rooms – define rooms and capacity
-• Schedules – define time slots and breaks
-• RoomSchedule – assign schedules to rooms
-• TeacherSubject - assign subjects to teachers
+• Auth      – login with username and hashed password
+• Teachers  – manage teacher info, codes, and email
+• Subjects  – manage subjects with unique codes
+• Rooms     – define rooms, capacity, and level
+• Schedules – define schedule templates with time slots and breaks
+• Sections  – define class sections with unique codes
+• RoomSchedule   – assign schedules and teachers to rooms
+• TeacherSubject – assign subjects to teachers
+• ClassGroup     – link a teacher-subject + room-schedule + section into a class
+• Pagination     – shared pagination service across all list endpoints
 ```
 
 ## Project Structure
 
 ```bash
 src/
-├─ accounts/
-│  ├─ accounts.controller.ts
-│  ├─ accounts.service.ts
-│  └─ dto/
+├─ auth/
+│  ├─ auth.controller.ts
+│  ├─ auth.service.ts
+│  ├─ dto/
+│  └─ entities/
 ├─ teachers/
 │  ├─ teachers.controller.ts
 │  ├─ teachers.service.ts
-│  └─ dto/
+│  ├─ dto/
+│  └─ entities/
 ├─ subjects/
 ├─ rooms/
 ├─ schedules/
+├─ sections/
 ├─ room-schedules/
+├─ teacher-subjects/
+├─ class-groups/
+├─ common/
+│  └─ pagination/
+│     ├─ pagination.module.ts
+│     └─ pagination.service.ts
 ├─ prisma/
 │  ├─ prisma.module.ts
 │  └─ prisma.service.ts
