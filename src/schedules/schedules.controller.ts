@@ -2,6 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestj
 import { SchedulesService } from './schedules.service';
 import { CreateScheduleDto } from './dto/create-schedule.dto';
 import { UpdateScheduleDto } from './dto/update-schedule.dto';
+import { ApiQuery } from '@nestjs/swagger';
 
 @Controller('schedules')
 export class SchedulesController {
@@ -13,12 +14,17 @@ export class SchedulesController {
   }
 
   @Get()
+  @ApiQuery({ name: 'page', required: false, type: Number })
+  @ApiQuery({ name: 'limit', required: false, type: Number })
+  @ApiQuery({ name: 'search', required: false, type: String })
+  @ApiQuery({ name: 'sortBy', required: false, type: String })
+  @ApiQuery({ name: 'sortOrder', required: false, type: String, enum: ['asc', 'desc'] })
   findAll(
-    @Query('page') page: number,
-    @Query('limit') limit: number,
+    @Query('page') page?: number,
+    @Query('limit') limit?: number,
     @Query('search') search?: string,
-    @Query('sortBy') sortBy: string = 'name',
-    @Query('sortOrder') sortOrder: 'asc' | 'desc' = 'asc'
+    @Query('sortBy') sortBy?: string,
+    @Query('sortOrder') sortOrder?: 'asc' | 'desc'
   ) {
     return this.schedulesService.findAll(page, limit, search, sortBy, sortOrder);
   }
