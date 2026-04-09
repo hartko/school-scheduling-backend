@@ -26,7 +26,6 @@ model Teacher {
   teacher_code    String?          @unique
   email           String?          @unique
   teacherSubjects TeacherSubject[]
-  roomSchedules   RoomSchedule[]
 }
 
 model Room {
@@ -90,8 +89,6 @@ model RoomSchedule {
 
   room        Room         @relation(fields: [room_id], references: [id])
   schedule    Schedule     @relation(fields: [schedule_id], references: [id])
-  teacher     Teacher?     @relation(fields: [teacherId], references: [id])
-  teacherId   Int?
   classGroups ClassGroup[]
 
   @@unique([room_id, schedule_id])

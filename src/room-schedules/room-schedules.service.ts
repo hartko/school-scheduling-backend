@@ -17,14 +17,15 @@ export class RoomSchedulesService {
     });
   }
 
-  findAll(page: number, limit: number, search?: string, sortBy: string = 'id', sortOrder: 'asc' | 'desc' = 'asc') {
+  findAll(page: number = 1, limit: number = 10, search?: string, sortBy: string = 'id', sortOrder: 'asc' | 'desc' = 'asc') {
     const where = search ? { name: { contains: search, mode: 'insensitive' } } : {};
     return this.paginationService.paginate(
       this.prisma.roomSchedule,
       page,
       limit,
       { [sortBy]: sortOrder },
-      where
+      where,
+      { schedule: { include: { scheduleTimes: true } }, room: true }
     );
   }
 

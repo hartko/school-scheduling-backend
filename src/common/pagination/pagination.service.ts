@@ -4,7 +4,7 @@ import { PrismaService } from '../../prisma/prisma.service';
 
 @Injectable()
 export class PaginationService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService) { }
 
   /**
    * Generic pagination function for any Prisma model
@@ -14,7 +14,7 @@ export class PaginationService {
    * @param orderBy - optional ordering
    * @param where - optional filtering
    */
-  async paginate(model: any, page = 1, limit = 10, orderBy: any = {}, where: any = {}, distinct?: string[]) {
+  async paginate(model: any, page = 1, limit = 10, orderBy: any = {}, where: any = {}, include?: any, distinct?: string[]) {
     const skip = (page - 1) * limit;
 
     const [items, total] = await Promise.all([
@@ -24,6 +24,7 @@ export class PaginationService {
         take: limit,
         orderBy,
         ...(distinct && { distinct }),
+        ...(include && { include }),
       }),
       model.count({ where }),
     ]);
