@@ -1,19 +1,22 @@
 // src/prisma/prisma.service.ts
 import { Injectable, OnModuleInit, OnModuleDestroy } from '@nestjs/common';
 import { PrismaClient } from '@prisma/client';
-import { PrismaPg } from '@prisma/adapter-pg'; // import the adapter class
+import { PrismaPg } from '@prisma/adapter-pg';
+import PrismaPaginate from 'prisma-paginate';
 
 @Injectable()
 export class PrismaService extends PrismaClient implements OnModuleInit, OnModuleDestroy {
   constructor() {
     const adapter = new PrismaPg({
-      connectionString: process.env.DATABASE_URL as string, // proper init
+      connectionString: process.env.DATABASE_URL as string,
     });
 
     super({
       adapter, // pass the instantiated adapter
       log: ['query', 'info', 'warn', 'error'],
     });
+     this.$extends(PrismaPaginate);
+
   }
 
   async onModuleInit() {

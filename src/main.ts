@@ -8,7 +8,12 @@ import 'dotenv/config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-    app.useGlobalPipes(
+
+  app.enableCors({
+    origin: ["http://localhost:3000", "https://sci-scheduler.vercel.app"], // your Next.js frontend
+    credentials: true,
+  })
+  app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true, // remove unexpected properties
       forbidNonWhitelisted: true, // throw error if extra props
@@ -16,7 +21,7 @@ async function bootstrap() {
     }),
   );
 
-    const config = new DocumentBuilder()
+  const config = new DocumentBuilder()
     .setTitle('School Scheduling API')
     .setDescription('School Scheduling API documentation')
     .setVersion('1.0')

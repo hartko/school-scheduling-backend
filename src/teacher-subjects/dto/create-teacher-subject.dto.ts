@@ -9,7 +9,8 @@ export class CreateTeacherSubjectDto {
     teacher_id: number;
 
     @ApiProperty({
-        description: 'The ID of the subject'    })
+        description: 'The ID of the subject'
+    })
     @IsNumber()
     subject_id: number;
 }
