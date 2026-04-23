@@ -1,4 +1,5 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
+import { ApiQuery } from '@nestjs/swagger';
 import { ClassGroupService } from './class-group.service';
 import { CreateClassGroupDto } from './dto/create-class-group.dto';
 import { UpdateClassGroupDto } from './dto/update-class-group.dto';
@@ -13,9 +14,14 @@ export class ClassGroupController {
   }
 
   @Get()
+  @ApiQuery({ name: 'page', required: false, type: Number })
+  @ApiQuery({ name: 'limit', required: false, type: Number })
+  @ApiQuery({ name: 'search', required: false, type: String })
+  @ApiQuery({ name: 'sortBy', required: false, type: String })
+  @ApiQuery({ name: 'sortOrder', required: false, enum: ['asc', 'desc'] })
   findAll(
-    @Query('page') page: number,
-    @Query('limit') limit: number,
+    @Query('page') page?: number,
+    @Query('limit') limit?: number,
     @Query('search') search?: string,
     @Query('sortBy') sortBy: string = 'id',
     @Query('sortOrder') sortOrder: 'asc' | 'desc' = 'asc'

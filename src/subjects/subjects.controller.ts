@@ -1,4 +1,5 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
+import { ApiQuery } from '@nestjs/swagger';
 import { SubjectsService } from './subjects.service';
 import { CreateSubjectDto } from './dto/create-subject.dto';
 import { UpdateSubjectDto } from './dto/update-subject.dto';
@@ -13,12 +14,17 @@ export class SubjectsController {
   }
 
   @Get()
+  @ApiQuery({ name: 'page', required: false, type: Number })
+  @ApiQuery({ name: 'limit', required: false, type: Number })
+  @ApiQuery({ name: 'search', required: false, type: String })
+  @ApiQuery({ name: 'sortBy', required: false, type: String })
+  @ApiQuery({ name: 'sortOrder', required: false, enum: ['asc', 'desc'] })
   findAll(
-    @Query('page') page: number,
-    @Query('limit') limit: number,
-    @Query('search') search: string,
-    @Query('sortBy') sortBy: string,
-    @Query('sortOrder') sortOrder: 'asc' | 'desc'
+    @Query('page') page?: number,
+    @Query('limit') limit?: number,
+    @Query('search') search?: string,
+    @Query('sortBy') sortBy?: string,
+    @Query('sortOrder') sortOrder?: 'asc' | 'desc'
   ) {
     return this.subjectsService.findAll(page, limit, search, sortBy, sortOrder);
   }

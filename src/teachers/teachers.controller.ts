@@ -1,4 +1,5 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
+import { ApiQuery } from '@nestjs/swagger';
 import { TeachersService } from './teachers.service';
 import { CreateTeacherDto } from './dto/create-teacher.dto';
 import { UpdateTeacherDto } from './dto/update-teacher.dto';
@@ -13,12 +14,17 @@ export class TeachersController {
   }
 
   @Get()
+  @ApiQuery({ name: 'page', required: false, type: Number })
+  @ApiQuery({ name: 'limit', required: false, type: Number })
+  @ApiQuery({ name: 'search', required: false, type: String })
+  @ApiQuery({ name: 'sortBy', required: false, type: String })
+  @ApiQuery({ name: 'sortOrder', required: false, enum: ['asc', 'desc'] })
   findAll(
-    @Query('page') page: number,
-    @Query('limit') limit: number,
-    @Query('search') search: string,
-    @Query('sortBy') sortBy: string,
-    @Query('sortOrder') sortOrder: 'asc' | 'desc'
+    @Query('page') page: number = 1,
+    @Query('limit') limit: number = 10,
+    @Query('search') search: string = '',
+    @Query('sortBy') sortBy: string = 'id',
+    @Query('sortOrder') sortOrder: 'asc' | 'desc' = 'asc'
   ) {
     return this.teachersService.findAll(page, limit, search, sortBy, sortOrder);
   }
