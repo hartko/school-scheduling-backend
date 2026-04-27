@@ -7,6 +7,8 @@ import { seedSections } from "./seeders/section.seeder";
 import { seedRooms } from "./seeders/room.seeder";
 import { seedSubjects } from "./seeders/subject.seeder";
 import { seedTeachers } from "./seeders/teacher.seeder";
+import { seedTeacherSubjects } from "./seeders/teacher-subject.seeder";
+import { seedSectionSubjects } from "./seeders/section-subject.seeder";
 
 dotenv.config();
 
@@ -26,6 +28,8 @@ async function main() {
   await seedRooms(prisma);
   await seedSubjects(prisma);
   await seedTeachers(prisma);
+  await seedTeacherSubjects(prisma);
+  await seedSectionSubjects(prisma);
  
 
   console.log("🌱 Seeding finished.");

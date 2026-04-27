@@ -11,6 +11,7 @@ import { PrismaModule } from './prisma/prisma.module';
 import { ServiceModule } from './service/service.module';
 import { ClassGroupModule } from './class-groups/class-group.module';
 import { SectionsModule } from './sections/sections.module';
+import { SectionSubjectsModule } from './section-subjects/section-subjects.module';
 
 @Module({
   imports: [
@@ -24,7 +25,8 @@ import { SectionsModule } from './sections/sections.module';
     PrismaModule,
     ServiceModule,
     ClassGroupModule,
-    SectionsModule],
+    SectionsModule,
+    SectionSubjectsModule],
   providers: [AppService],
 })
 export class AppModule { }

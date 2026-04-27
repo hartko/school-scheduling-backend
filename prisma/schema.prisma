@@ -37,9 +37,10 @@ model Room {
 }
 
 model Section {
-  id   Int    @id @default(autoincrement())
-  code String @unique
-  name String
+  id              Int              @id @default(autoincrement())
+  code            String           @unique
+  name            String
+  sectionSubjects SectionSubject[]
 }
 
 model Subject {
@@ -47,6 +48,19 @@ model Subject {
   name            String
   code            String?          @unique
   teacherSubjects TeacherSubject[]
+  sectionSubjects SectionSubject[]
+}
+
+model SectionSubject {
+  id         Int  @id @default(autoincrement())
+  section_id Int
+  subject_id Int
+  units      Int?
+
+  section Section @relation(fields: [section_id], references: [id], onDelete: Cascade)
+  subject Subject @relation(fields: [subject_id], references: [id], onDelete: Cascade)
+
+  @@unique([section_id, subject_id])
 }
 
 model Schedule {
@@ -67,7 +81,8 @@ model ScheduleTime {
   day         Int
   schedule_id Int
 
-  schedule Schedule @relation(fields: [schedule_id], references: [id])
+  schedule    Schedule     @relation(fields: [schedule_id], references: [id])
+  classGroups ClassGroup[]
 }
 
 model TeacherSubject {
@@ -99,9 +114,11 @@ model ClassGroup {
   teacher_subject_id Int?
   room_schedule_id   Int?
   section_id         Int?
+  schedule_time_id   Int?
 
   teacherSubject   TeacherSubject? @relation(fields: [teacher_subject_id], references: [id])
   teacherSubjectId Int?
   roomSchedule     RoomSchedule?   @relation(fields: [room_schedule_id], references: [id])
   roomScheduleId   Int?
+  scheduleTime     ScheduleTime?   @relation(fields: [schedule_time_id], references: [id])
 }

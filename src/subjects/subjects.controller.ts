@@ -20,11 +20,11 @@ export class SubjectsController {
   @ApiQuery({ name: 'sortBy', required: false, type: String })
   @ApiQuery({ name: 'sortOrder', required: false, enum: ['asc', 'desc'] })
   findAll(
-    @Query('page') page?: number,
-    @Query('limit') limit?: number,
-    @Query('search') search?: string,
-    @Query('sortBy') sortBy?: string,
-    @Query('sortOrder') sortOrder?: 'asc' | 'desc'
+    @Query('page') page: number = 1,
+    @Query('limit') limit: number = 10,
+    @Query('search') search: string = '',
+    @Query('sortBy') sortBy: string = 'id',
+    @Query('sortOrder') sortOrder: 'asc' | 'desc' = 'asc'
   ) {
     return this.subjectsService.findAll(page, limit, search, sortBy, sortOrder);
   }
