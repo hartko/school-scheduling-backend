@@ -9,6 +9,7 @@ import { seedSubjects } from "./seeders/subject.seeder";
 import { seedTeachers } from "./seeders/teacher.seeder";
 import { seedTeacherSubjects } from "./seeders/teacher-subject.seeder";
 import { seedSectionSubjects } from "./seeders/section-subject.seeder";
+import { seedRoomSchedules } from "./seeders/room-schedule.seeder";
 
 dotenv.config();
 
@@ -21,6 +22,17 @@ const prisma = new PrismaClient({
 });
 
 async function main() {
+  console.log("🗑️  Clearing existing data...");
+  await prisma.classGroup.deleteMany({});
+  await prisma.teacherSubject.deleteMany({});
+  await prisma.sectionSubject.deleteMany({});
+  await prisma.roomSchedule.deleteMany({});
+  await prisma.scheduleTime.deleteMany({});
+  await prisma.teacher.deleteMany({});
+  await prisma.section.deleteMany({});
+  await prisma.room.deleteMany({});
+  await prisma.subject.deleteMany({});
+  await prisma.schedule.deleteMany({});
   console.log("🌱 Seeding database...");
 
   await seedSchedules(prisma);
@@ -30,6 +42,7 @@ async function main() {
   await seedTeachers(prisma);
   await seedTeacherSubjects(prisma);
   await seedSectionSubjects(prisma);
+  await seedRoomSchedules(prisma);
  
 
   console.log("🌱 Seeding finished.");

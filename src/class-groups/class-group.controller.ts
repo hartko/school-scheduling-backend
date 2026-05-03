@@ -2,11 +2,17 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestj
 import { ApiQuery } from '@nestjs/swagger';
 import { ClassGroupService } from './class-group.service';
 import { CreateClassGroupDto } from './dto/create-class-group.dto';
+import { CreateBulkClassGroupDto } from './dto/create-bulk-class-group.dto';
 import { UpdateClassGroupDto } from './dto/update-class-group.dto';
 
 @Controller('class-group')
 export class ClassGroupController {
   constructor(private readonly classGroupService: ClassGroupService) {}
+
+  @Post('bulk')
+  bulkCreate(@Body() dto: CreateBulkClassGroupDto) {
+    return this.classGroupService.bulkCreate(dto.items);
+  }
 
   @Post()
   create(@Body() createClassGroupDto: CreateClassGroupDto) {

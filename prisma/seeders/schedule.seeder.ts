@@ -15,7 +15,6 @@ export async function seedSchedules(prisma: PrismaClient) {
         { day: 0, start_time: "15:00", end_time: "16:00", is_break: false },
         { day: 0, start_time: "16:00", end_time: "17:00", is_break: false },
         { day: 0, start_time: "17:00", end_time: "18:00", is_break: false },
-        { day: 0, start_time: "17:00", end_time: "18:00", is_break: false },
         { day: 0, start_time: "18:00", end_time: "18:30", is_break: false },
         { day: 0, start_time: "18:30", end_time: "19:30", is_break: false },
         { day: 0, start_time: "19:30", end_time: "20:30", is_break: false }
@@ -29,7 +28,7 @@ export async function seedSchedules(prisma: PrismaClient) {
             schedule_code: "SC-V1StGX",
             scheduleTimes: {
                 create: scheduleTimes.flatMap((s) =>
-                    Array.from({ length: 7 }, (_, day) => ({ ...s, day }))
+                    Array.from({ length: 7 }, (_, day) => ({ ...s, day, is_break: day === 6 ? true : s.is_break }))
                 )
             }
         }

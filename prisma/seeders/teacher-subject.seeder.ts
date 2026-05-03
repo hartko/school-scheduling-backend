@@ -2,36 +2,36 @@ import { PrismaClient } from "@prisma/client";
 
 export async function seedTeacherSubjects(prisma: PrismaClient) {
   const assignments: Record<string, string[]> = {
-    'TCH-001': ['ENG1', 'ENG2', 'GE-PC'],
-    'TCH-002': ['ENG3', 'ENG4', 'HUMSS-CW'],
-    'TCH-003': ['FIL1', 'FIL2', 'FIL3', 'FIL4'],
-    'TCH-004': ['AP1', 'AP2', 'GE-RPH'],
-    'TCH-005': ['AP3', 'AP4', 'GE-TCW', 'HUMSS-PPG'],
-    'TCH-006': ['MATH1', 'MATH2', 'ABM-BMATH'],
-    'TCH-007': ['MATH3', 'MATH4', 'GE-MMW', 'STEM-PCAL', 'STEM-BCAL'],
-    'TCH-008': ['SCI1', 'SCI2', 'STEM-ELS'],
-    'TCH-009': ['SCI3', 'STEM-GCHEM1', 'STEM-GCHEM2'],
-    'TCH-010': ['SCI4', 'STEM-GPHY1', 'STEM-GPHY2'],
-    'TCH-011': ['STEM-GBIO1', 'STEM-GBIO2'],
-    'TCH-012': ['TLE', 'TVL-FBS', 'TVL-BPP'],
-    'TCH-013': ['MAPEH1', 'MAPEH2', 'MAPEH3', 'MAPEH4'],
-    'TCH-014': ['ESP1', 'ESP2', 'ESP3', 'ESP4', 'GE-ETHICS', 'GE-UTS'],
-    'TCH-015': ['GE-ARTAPP', 'HUMSS-IWR', 'HUMSS-CE'],
-    'TCH-016': ['CS-ICOMP', 'CS-CPROG1', 'CS-CPROG2'],
-    'TCH-017': ['CS-DSA', 'CS-OOP', 'CS-DISCMATH'],
-    'TCH-018': ['CS-DBMS', 'CS-OS', 'CS-CN'],
-    'TCH-019': ['CS-SE', 'CS-WD', 'CS-MAD', 'TVL-CHS'],
-    'TCH-020': ['CS-AI', 'CS-CAP1', 'CS-CAP2'],
-    'TCH-021': ['ABM-FACCTG', 'ACCTG1', 'ACCTG2'],
-    'TCH-022': ['ACCTG-COST', 'ACCTG-MGT', 'ACCTG-AUD', 'ACCTG-TAX'],
-    'TCH-023': ['ABM-BF', 'ABM-OM', 'ABM-AECON'],
-    'TCH-024': ['BA-BLAW', 'BA-POM', 'BA-MM', 'GE-STS'],
-    'TCH-025': ['BA-HRM', 'BA-OM', 'BA-SM'],
-    'TCH-026': ['ED-CAD', 'ED-TP', 'ED-CI'],
-    'TCH-027': ['ED-ASMT1', 'ED-ASMT2', 'ED-FLCT'],
-    'TCH-028': ['ED-FS1', 'ED-FS2', 'ED-PT'],
-    'TCH-029': ['GE-RIZAL', 'GE-RPH'],
-    'TCH-030': ['NUR-AP', 'NUR-MP', 'NUR-PHARM', 'NUR-MSN1'],
+    'TCH-001': ['ENG1',       'ENG2',       'GE-PC'      ],  // 3
+    'TCH-002': ['ENG3',       'ENG4',       'HUMSS-CW'   ],  // 3
+    'TCH-003': ['FIL1',       'FIL2',       'FIL3'       ],  // 3  (FIL4 → TCH-030)
+    'TCH-004': ['AP1',        'AP2',        'GE-RPH'     ],  // 3
+    'TCH-005': ['AP3',        'AP4',        'GE-TCW'     ],  // 3  (HUMSS-PPG → TCH-027)
+    'TCH-006': ['MATH1',      'MATH2',      'ABM-BMATH'  ],  // 3
+    'TCH-007': ['MATH3',      'MATH4',      'GE-MMW'     ],  // 3  (STEM-PCAL → TCH-011, STEM-BCAL → TCH-029)
+    'TCH-008': ['SCI1',       'SCI2',       'STEM-ELS'   ],  // 3
+    'TCH-009': ['SCI3',       'STEM-GCHEM1','STEM-GCHEM2'],  // 3
+    'TCH-010': ['SCI4',       'STEM-GPHY1', 'STEM-GPHY2' ],  // 3
+    'TCH-011': ['STEM-GBIO1', 'STEM-GBIO2', 'STEM-PCAL'  ],  // 3  (added STEM-PCAL)
+    'TCH-012': ['TLE',        'TVL-FBS',    'TVL-BPP'    ],  // 3
+    'TCH-013': ['MAPEH1',     'MAPEH2',     'MAPEH3'     ],  // 3  (MAPEH4 → TCH-030)
+    'TCH-014': ['ESP1',       'ESP2',       'ESP3'       ],  // 3  (ESP4 → TCH-030)
+    'TCH-015': ['HUMSS-IWR',  'HUMSS-CE',   'GE-PC'      ],  // 3
+    'TCH-016': ['CS-ICOMP',   'CS-CPROG1',  'CS-CPROG2'  ],  // 3
+    'TCH-017': ['CS-DSA',     'CS-OOP',     'CS-DISCMATH' ],  // 3
+    'TCH-018': ['CS-DBMS',    'CS-OS',      'CS-CN'      ],  // 3
+    'TCH-019': ['TVL-CHS',    'CS-WD',      'CS-MAD'     ],  // 3
+    'TCH-020': ['CS-AI',      'CS-CAP1',    'CS-CAP2'    ],  // 3
+    'TCH-021': ['ABM-FACCTG', 'ACCTG1',     'ACCTG2'     ],  // 3
+    'TCH-022': ['ACCTG-COST', 'ACCTG-MGT',  'ACCTG-AUD'  ],  // 3
+    'TCH-023': ['ABM-BF',     'ABM-OM',     'ABM-AECON'  ],  // 3
+    'TCH-024': ['BA-BLAW',    'BA-POM',     'BA-MM'      ],  // 3
+    'TCH-025': ['BA-HRM',     'BA-OM',      'BA-SM'      ],  // 3
+    'TCH-026': ['ED-CAD',     'ED-TP',      'ED-CI'      ],  // 3
+    'TCH-027': ['ED-CAD',     'ED-TP',      'HUMSS-PPG'  ],  // 3  (2nd ED teacher + HUMSS-PPG)
+    'TCH-028': ['ED-FS1',     'ED-FS2',     'ED-PT'      ],  // 3
+    'TCH-029': ['GE-RPH',     'GE-PC',      'STEM-BCAL'  ],  // 3  (2nd GE-RPH + GE-PC + STEM-BCAL)
+    'TCH-030': ['FIL4',       'MAPEH4',     'ESP4'       ],  // 3  (covers all G10 orphans)
   };
 
   const teachers = await prisma.teacher.findMany();

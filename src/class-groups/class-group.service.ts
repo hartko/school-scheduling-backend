@@ -17,6 +17,10 @@ export class ClassGroupService {
     });
   }
 
+  bulkCreate(items: CreateClassGroupDto[]) {
+    return this.prisma.classGroup.createMany({ data: items });
+  }
+
   findAll(page = 1, limit = 10, search?: string, sortBy: string = 'id', sortOrder: 'asc' | 'desc' = 'asc') {
     return this.pagination.paginate(
       this.prisma.classGroup,
